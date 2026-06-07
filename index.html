@@ -306,26 +306,98 @@ footer{background:var(--black);border-top:1px solid rgba(201,168,76,.12);padding
 .legal-h3{font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
 .legal-block{border-top:1px solid rgba(255,255,255,.06);padding-top:28px;margin-top:28px;font-size:14px;line-height:1.85;color:rgba(250,250,248,.78);font-weight:300}
 
+/* ── HAMBURGER ── */
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:10px 6px;background:none;border:none;z-index:1010;flex-shrink:0;min-width:44px;min-height:44px;align-items:center}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--gold);transition:all .35s cubic-bezier(.4,0,.2,1);transform-origin:center}
+.hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── MOBILE NAV DRAWER ── */
+.mobile-nav{position:fixed;inset:0;z-index:998;background:rgba(6,6,10,.98);backdrop-filter:blur(28px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transform:translateX(100%);transition:transform .45s cubic-bezier(.16,1,.3,1);pointer-events:none;-webkit-overflow-scrolling:touch}
+.mobile-nav.open{transform:translateX(0);pointer-events:all}
+.mobile-nav-logo{font-family:var(--cinzel);font-size:.75rem;letter-spacing:.3em;color:rgba(201,168,76,.35);text-transform:uppercase;margin-bottom:32px}
+.mobile-nav-item{background:none;border:none;font-family:var(--cinzel);font-size:1.55rem;font-weight:400;color:rgba(250,250,248,.62);cursor:pointer;padding:16px 48px;letter-spacing:.1em;transition:color .25s;width:100%;text-align:center;position:relative;min-height:56px;display:flex;align-items:center;justify-content:center}
+.mobile-nav-item::after{content:'';position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:0;height:1px;background:linear-gradient(to right,var(--gold4),var(--gold2));transition:width .35s cubic-bezier(.4,0,.2,1)}
+.mobile-nav-item:hover,.mobile-nav-item.active{color:var(--gold2)}
+.mobile-nav-item:hover::after,.mobile-nav-item.active::after{width:36%}
+.mobile-nav-sep{width:40px;height:1px;background:rgba(201,168,76,.12);margin:4px 0}
+
 /* ── RESPONSIVE ── */
 @media(max-width:1024px){
-  header{padding:0 28px}
+  header{padding:0 24px}
   nav{display:none}
-  .hero-content,.page-hero-content{padding-left:28px;padding-right:28px}
+  .hamburger{display:flex}
+  .hero-content,.page-hero-content{padding-left:24px;padding-right:24px}
   .hero-content{padding-bottom:80px}
-  .page-hero-content{padding-bottom:48px}
-  .welcome,.about,.kontakt{grid-template-columns:1fr;gap:56px;padding:72px 28px}
-  .pillars,.features,.partner,.projekte,.suchprofil,.partner{padding:72px 28px}
-  .pillars-grid,.features-grid,.such-cards,.proj-grid,.partner-grid{grid-template-columns:1fr}
+  .page-hero-content{padding-bottom:44px}
+  .welcome{padding:80px 24px;grid-template-columns:1fr;gap:48px}
+  .about{padding:80px 24px;grid-template-columns:1fr;gap:48px}
+  .kontakt{padding:80px 24px;grid-template-columns:1fr;gap:48px}
+  .pillars,.features,.partner,.projekte,.suchprofil{padding:72px 24px}
+  .pillars-grid,.features-grid,.partner-grid{grid-template-columns:1fr}
+  .such-cards,.proj-grid{grid-template-columns:1fr 1fr}
   .stats-grid{grid-template-columns:1fr 1fr}
-  footer{padding:48px 28px 36px}
-  .footer-top{flex-direction:column;gap:28px}
+  .such-card{height:280px}
+  .proj-card{height:340px}
+  .pillar{padding:44px 32px}
+  footer{padding:48px 24px 36px}
+  .footer-top{flex-direction:column;gap:24px}
+  .footer-links{flex-wrap:wrap;gap:16px 24px}
   .footer-bottom{flex-direction:column;gap:12px;text-align:center}
-  .quote{padding:80px 28px}
-  .cookie{padding:20px 24px;flex-direction:column;align-items:flex-start;gap:20px}
+  .quote{padding:80px 24px}
+  .cookie{padding:20px 24px;flex-direction:column;align-items:flex-start;gap:16px}
   .modal{padding:40px 24px}
 }
+@media(max-width:768px){
+  .such-cards,.proj-grid{grid-template-columns:1fr}
+  .such-card{height:260px}
+  .proj-card{height:300px}
+  .page-hero{height:36vh;min-height:250px}
+  .welcome,.about,.kontakt{padding:64px 20px;gap:40px}
+  .pillars,.features,.partner,.projekte,.suchprofil{padding:64px 20px}
+  footer{padding:40px 20px 28px}
+  .quote{padding:64px 20px}
+  .kontakt-info{gap:16px}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .partner-grid{grid-template-columns:1fr}
+  .suchprofil-intro{font-size:14px;margin-bottom:48px}
+}
 @media(max-width:600px){
+  header{height:64px;padding:0 20px}
+  .hero-content{padding:0 20px 64px}
+  .hero-title{margin-bottom:28px}
+  .hero-btn{padding:14px 28px;font-size:9px}
+  .page-hero-content{padding:0 20px 36px}
+  .page-hero-title{font-size:2.2rem}
+  .welcome,.about,.kontakt{padding:56px 20px;gap:36px}
+  .pillars,.features,.partner,.projekte,.suchprofil{padding:56px 20px}
+  .pillars-grid,.features-grid{grid-template-columns:1fr}
+  .pillar{padding:36px 24px}
+  .pillar-num{font-size:52px}
+  .feature-item{padding:28px 20px}
+  .stat-item{padding:32px 24px}
+  .partner-card{padding:36px 24px}
+  .such-card{height:240px}
+  .proj-card{height:280px}
+  .quote{padding:56px 20px}
+  .quote-mark{font-size:80px}
+  footer{padding:36px 20px 24px}
+  .footer-links{gap:12px 20px}
+  .footer-link{font-size:9px}
+  .cookie{padding:18px 20px;gap:14px}
+  .cookie-actions{width:100%;justify-content:flex-end}
+  .modal{padding:28px 20px;max-height:92vh}
+  .legal-title{font-size:1.5rem}
+  .kontakt-info{margin-top:24px;gap:14px}
+  .form-group{margin-bottom:22px}
+  .gold-btn{margin-top:28px}
+  .section-heading{font-size:clamp(1.6rem,5vw,2.4rem)}
+}
+@media(max-width:390px){
   .stats-grid{grid-template-columns:1fr}
+  .hero-title{font-size:2.3rem}
+  .mobile-nav-item{font-size:1.3rem;padding:14px 32px}
 }
 </style>
 </head>
@@ -347,7 +419,24 @@ footer{background:var(--black);border-top:1px solid rgba(201,168,76,.12);padding
     <button class="nav-btn" data-page="projekte"   onclick="showPage('projekte')">Projekte</button>
     <button class="nav-btn" data-page="kontakt"    onclick="showPage('kontakt')">Kontakt</button>
   </nav>
+  <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </header>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+  <div class="mobile-nav-logo">TI Group</div>
+  <button class="mobile-nav-item" data-page="willkommen" onclick="showPage('willkommen')">Willkommen</button>
+  <div class="mobile-nav-sep"></div>
+  <button class="mobile-nav-item" data-page="uber-uns" onclick="showPage('uber-uns')">Über Uns</button>
+  <div class="mobile-nav-sep"></div>
+  <button class="mobile-nav-item" data-page="suchprofil" onclick="showPage('suchprofil')">Suchprofil</button>
+  <div class="mobile-nav-sep"></div>
+  <button class="mobile-nav-item" data-page="projekte" onclick="showPage('projekte')">Projekte</button>
+  <div class="mobile-nav-sep"></div>
+  <button class="mobile-nav-item" data-page="kontakt" onclick="showPage('kontakt')">Kontakt</button>
+</nav>
 
 <!-- ═══════════════════════════════════════════
      PAGE: WILLKOMMEN
@@ -883,6 +972,39 @@ footer{background:var(--black);border-top:1px solid rgba(201,168,76,.12);padding
 </div>
 
 <script>
+/* ── HAMBURGER MENU ── */
+(function() {
+  var btn = document.getElementById('hamburger');
+  var nav = document.getElementById('mobile-nav');
+  if (!btn || !nav) return;
+
+  function openNav() {
+    btn.classList.add('open');
+    nav.classList.add('open');
+    btn.setAttribute('aria-expanded', 'true');
+    nav.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeNav() {
+    btn.classList.remove('open');
+    nav.classList.remove('open');
+    btn.setAttribute('aria-expanded', 'false');
+    nav.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  btn.addEventListener('click', function() {
+    nav.classList.contains('open') ? closeNav() : openNav();
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && nav.classList.contains('open')) closeNav();
+  });
+
+  window._closeMobileNav = closeNav;
+})();
+
 /* ── PAGE ROUTER ── */
 var currentPage = 'willkommen';
 
@@ -900,8 +1022,11 @@ function showPage(name) {
   // Scroll to top
   window.scrollTo({top: 0, behavior: 'instant'});
 
+  // Close mobile nav if open
+  if (window._closeMobileNav) window._closeMobileNav();
+
   // Update nav active state
-  document.querySelectorAll('.nav-btn').forEach(function(btn) {
+  document.querySelectorAll('.nav-btn, .mobile-nav-item').forEach(function(btn) {
     btn.classList.toggle('active', btn.getAttribute('data-page') === name);
   });
 
