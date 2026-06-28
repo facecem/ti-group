@@ -209,9 +209,14 @@
         bearing: -10,
         maxPitch: 70,
         attributionControl: false,
-        scrollZoom: false,            // keep page scrollable over the hero
+        cooperativeGestures: true,    // one finger scrolls the page; two fingers move the map
         dragRotate: true,
-        antialias: true
+        antialias: true,
+        locale: {
+          'CooperativeGesturesHandler.WindowsHelpText': 'Strg + Scrollen zum Zoomen',
+          'CooperativeGesturesHandler.MacHelpText': '⌘ + Scrollen zum Zoomen',
+          'CooperativeGesturesHandler.MobileHelpText': 'Mit zwei Fingern bewegen'
+        }
       });
     } catch (e) {
       clearTimeout(safety); hideLoader(); return;
