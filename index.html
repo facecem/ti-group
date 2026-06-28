@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TI Group – Real Estate · Hospitality · Gastro</title>
+<meta name="description" content="Die TI Group ist ein inhabergeführtes Familienunternehmen mit Wurzeln in der Städteregion Aachen. Immobilien, Hotellerie und Gastronomie." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <div id="map"></div>
+
+  <div id="loader">
+    <span class="loader-text">TI&nbsp;GROUP</span>
+    <div class="loader-bar"></div>
+  </div>
+
+  <!-- HEADER -->
+  <header id="header">
+    <a class="logo-wrap" href="index.html" aria-label="TI Group Startseite">
+      <div class="logo-row"><span class="logo-ti">TI</span><span class="logo-dot">.</span><span class="logo-group">Group</span></div>
+      <div class="logo-tag">Real Estate · Hospitality · Gastro</div>
+    </a>
+    <nav class="nav-desktop" aria-label="Hauptnavigation">
+      <a class="nav-btn active" href="index.html">Start</a>
+      <a class="nav-btn" href="ueber-uns.html">Über Uns</a>
+      <a class="nav-btn" href="leistungen.html">Leistungen</a>
+      <a class="nav-btn" href="projekte.html">Projekte</a>
+      <a class="nav-btn" href="suchprofil.html">Suchprofil</a>
+      <a class="nav-btn nav-cta" href="kontakt.html">Kontakt</a>
+    </nav>
+    <button class="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Start</a>
+    <a href="ueber-uns.html">Über Uns</a>
+    <a href="leistungen.html">Leistungen</a>
+    <a href="projekte.html">Projekte</a>
+    <a href="suchprofil.html">Suchprofil</a>
+    <a href="kontakt.html">Kontakt</a>
+  </div>
+
+  <!-- HERO (interactive 3D map of Aachen) -->
+  <section class="hero" id="willkommen">
+    <div class="hero-vignette"></div>
+    <div class="hero-scrim"></div>
+    <div class="hero-inner">
+      <span class="hero-eyebrow">Inhabergeführtes Familienunternehmen · Städteregion Aachen</span>
+      <h1><span class="line">Aus der Region.</span><span class="line gold">Für die Zukunft.</span></h1>
+      <p>Verwurzelt in Aachen — die TI Group entwickelt Immobilien, Hotellerie und Gastronomie mit unternehmerischem Mut und Verantwortung.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="ueber-uns.html">Über Uns</a>
+        <a class="btn btn-ghost" href="projekte.html">Projekte ansehen</a>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <div><b>3</b> Säulen</div>
+      <div><b>19.657&nbsp;m²</b> Bestand</div>
+      <div>Region <b>Aachen</b></div>
+    </div>
+    <div class="scroll-hint">Scrollen</div>
+  </section>
+
+  <main>
+    <!-- PILLARS -->
+    <section class="sec-light pad">
+      <div class="wrap">
+        <div class="reveal" style="max-width:640px"><div class="label">Unser Geschäftsmodell</div>
+        <h2 class="heading">Drei Säulen. Ein Anspruch.</h2>
+        <p class="text">Inhabergeführt aus der Städteregion Aachen entwickelt und betreibt die TI Group Immobilien, Hotellerie und Gastronomie – mit langfristigem Blick auf Wert und Qualität.</p></div>
+        <div class="grid-3">
+          <a class="pillar reveal" href="leistungen.html#immobilien"><div class="pillar-num">I</div><div class="pillar-roman">I. Säule</div><h3 class="pillar-title">Immobilienentwicklung</h3><p class="pillar-text">Die TAHIR Investments GmbH ist Spezialist für den Erwerb, die Entwicklung und die Bestandshaltung von Wohnimmobilien.</p><span class="pillar-link">Mehr erfahren ›</span></a>
+          <a class="pillar reveal d1" href="leistungen.html#hotellerie"><div class="pillar-num">II</div><div class="pillar-roman">II. Säule</div><h3 class="pillar-title">Hotellerie</h3><p class="pillar-text">Mit klarem Fokus auf langfristige Wertsteigerung und nachhaltige Immobilienentwicklung investieren wir in die Zukunft.</p><span class="pillar-link">Mehr erfahren ›</span></a>
+          <a class="pillar reveal d2" href="leistungen.html#gastronomie"><div class="pillar-num">III</div><div class="pillar-roman">III. Säule</div><h3 class="pillar-title">Gastronomie</h3><p class="pillar-text">Wir suchen ständig nach neuen Projekten und belohnen erfolgreiche Vermittlungen mit attraktiven Boni.</p><span class="pillar-link">Mehr erfahren ›</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS band -->
+    <section class="sec-tint pad">
+      <div class="wrap">
+        <div class="stats-grid stats-4 reveal">
+          <div class="stat-item lg"><div class="stat-value">19.657 m²</div><div class="stat-label">Immobilienbestand</div></div>
+          <div class="stat-item lg"><div class="stat-value">73.337</div><div class="stat-label">Übernachtungen jährlich</div></div>
+          <div class="stat-item lg"><div class="stat-value">306.235</div><div class="stat-label">Bestellungen jährlich</div></div>
+          <div class="stat-item lg"><div class="stat-value">3</div><div class="stat-label">Säulen des Unternehmens</div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS PREVIEW -->
+    <section class="sec-light pad">
+      <div class="wrap">
+        <div class="reveal"><div class="label">Unsere Projekte</div>
+        <h2 class="heading">Ein Einblick in die Zukunft,<br>die wir gestalten.</h2></div>
+        <div class="card-grid">
+          <a class="img-card reveal" href="projekte.html" style="height:380px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Wohnimmobilien</div><div class="img-title">Modernes Wohnquartier</div><div class="img-loc">Aachen Innenstadt</div><div class="img-btn">Ansehen <span>›</span></div></div></a>
+          <a class="img-card reveal d1" href="projekte.html" style="height:380px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Hotellerie</div><div class="img-title">Urbanes Design-Hotel</div><div class="img-loc">Köln Zentrum</div><div class="img-btn">Ansehen <span>›</span></div></div></a>
+          <a class="img-card reveal d2" href="projekte.html" style="height:380px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Gastronomie</div><div class="img-title">Systemgastronomie Hub</div><div class="img-loc">Düsseldorf Medienhafen</div><div class="img-btn">Ansehen <span>›</span></div></div></a>
+        </div>
+        <div class="reveal d2" style="margin-top:40px"><a class="btn btn-ghost" href="projekte.html">Alle Projekte</a></div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="cta-band pad">
+      <div class="wrap">
+        <h2 class="reveal">Let's build the next chapter together.</h2>
+        <p class="reveal d1">Ob Makler, Eigentümer oder Investor – wir sind Ihr Ansprechpartner für Immobilien, Hotelprojekte und Gastroflächen.</p>
+        <div class="reveal d2"><a class="btn btn-primary" href="kontakt.html">Projekt anfragen</a></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div>
+          <div class="footer-logo">TI<span>.</span>Group</div>
+          <div class="footer-tag">Real Estate · Hospitality · Gastro</div>
+        </div>
+        <div class="footer-links">
+          <a class="footer-link" href="ueber-uns.html">Über Uns</a>
+          <a class="footer-link" href="leistungen.html">Leistungen</a>
+          <a class="footer-link" href="projekte.html">Projekte</a>
+          <a class="footer-link" href="suchprofil.html">Suchprofil</a>
+          <a class="footer-link" href="kontakt.html">Kontakt</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© <span id="year">2026</span> TI Group. Alle Rechte vorbehalten.</div>
+        <div style="display:flex;gap:24px">
+          <a class="footer-link" href="impressum.html">Impressum</a>
+          <a class="footer-link" href="datenschutz.html">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- COOKIE -->
+  <div class="cookie hidden" id="cookie-banner">
+    <div class="cookie-text"><strong>Wir verwenden Cookies</strong>Diese Website verwendet Cookies, um Ihnen die bestmögliche Erfahrung zu bieten. Mehr dazu in unserer <a class="footer-link" style="color:var(--gold-deep);text-transform:none;letter-spacing:0;text-decoration:underline" href="datenschutz.html">Datenschutzerklärung</a>.</div>
+    <div class="cookie-actions">
+      <button class="cbtn cbtn-no" onclick="dismissCookie('declined')">Ablehnen</button>
+      <button class="cbtn cbtn-yes" onclick="dismissCookie('accepted')">Akzeptieren</button>
+    </div>
+  </div>
+
+  <script src="assets/main.js"></script>
+
+  <!-- Interactive 3D map of Aachen (MapLibre GL + OpenFreeMap, no API key) -->
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var loader = document.getElementById('loader');
+    function hideLoader() { if (loader) { loader.classList.add('hidden'); setTimeout(function(){ loader && loader.remove(); }, 700); } }
+    // Safety: never leave the loader stuck if the map is slow/offline
+    var safety = setTimeout(hideLoader, 6000);
+
+    if (!window.maplibregl) { hideLoader(); return; }
+
+    var AACHEN = [6.0839, 50.7753];
+
+    // Branded white + gold map style on free OpenStreetMap vector tiles
+    var style = {
+      version: 8,
+      name: 'TI Gold',
+      sources: {
+        omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet', attribution: '© OpenStreetMap-Mitwirkende' }
+      },
+      layers: [
+        { id: 'bg', type: 'background', paint: { 'background-color': '#FBF9F4' } },
+        { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': '#DBE4E8' } },
+        { id: 'park', type: 'fill', source: 'omt', 'source-layer': 'park', paint: { 'fill-color': '#EBEAD7', 'fill-opacity': 0.7 } },
+        { id: 'road-minor', type: 'line', source: 'omt', 'source-layer': 'transportation',
+          filter: ['!in', 'class', 'motorway', 'trunk', 'primary'],
+          paint: { 'line-color': '#E7E1D1', 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 0.3, 16, 2.4] } },
+        { id: 'road-major', type: 'line', source: 'omt', 'source-layer': 'transportation',
+          filter: ['in', 'class', 'motorway', 'trunk', 'primary'],
+          paint: { 'line-color': '#DBC characterized', 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 1, 16, 5] } },
+        { id: 'buildings', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13,
+          paint: {
+            'fill-extrusion-color': ['interpolate', ['linear'], ['get', 'render_height'],
+              0, '#F2ECE0', 12, '#EAD9B6', 40, '#DBBE7E', 90, '#C9A24B'],
+            'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 13, 0, 14, ['get', 'render_height']],
+            'fill-extrusion-base': ['get', 'render_min_height'],
+            'fill-extrusion-opacity': 0.94,
+            'fill-extrusion-vertical-gradient': true
+          } }
+      ]
+    };
+    // fix accidental token
+    style.layers[4].paint['line-color'] = '#D9C290';
+
+    var map;
+    try {
+      map = new maplibregl.Map({
+        container: 'map',
+        style: style,
+        center: AACHEN,
+        zoom: 14.6,
+        pitch: 36,
+        bearing: -10,
+        maxPitch: 70,
+        attributionControl: false,
+        scrollZoom: false,            // keep page scrollable over the hero
+        dragRotate: true,
+        antialias: true
+      });
+    } catch (e) {
+      clearTimeout(safety); hideLoader(); return;
+    }
+
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-left');
+    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
+
+    // gentle auto-rotation that pauses on interaction / when scrolled away
+    var heroVisible = true, paused = false, resumeT;
+    var heroEl = document.querySelector('.hero');
+    if (heroEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; }, { threshold: 0 }).observe(heroEl);
+    }
+    function pause() { paused = true; clearTimeout(resumeT); resumeT = setTimeout(function () { paused = false; }, 4000); }
+    ['mousedown', 'touchstart', 'wheel', 'dragstart', 'zoomstart'].forEach(function (ev) { map.on(ev, pause); });
+    var spinning = false;
+    function spin() {
+      requestAnimationFrame(spin);
+      if (reduced || !heroVisible || paused || !map) return;
+      map.setBearing(map.getBearing() + 0.045);
+    }
+    function startSpin() { if (!spinning) { spinning = true; spin(); } }
+
+    map.on('load', function () {
+      clearTimeout(safety);
+      hideLoader();
+      if (!reduced) {
+        map.easeTo({ center: AACHEN, zoom: 15.35, pitch: 55, bearing: -26, duration: 3000, essential: true });
+        setTimeout(startSpin, 3200);
+      } else {
+        map.jumpTo({ zoom: 15.35, pitch: 55, bearing: -26 });
+      }
+    });
+    map.on('error', function (e) { if (e && e.error) console.warn('Karte:', e.error.message); });
+  })();
+  </script>
+</body>
+</html>

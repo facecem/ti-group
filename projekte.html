@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Projekte – TI Group</title>
+<meta name="description" content="Ein Einblick in die Projekte der TI Group: Wohnimmobilien, Hotellerie und Gastronomie." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header id="header">
+    <a class="logo-wrap" href="index.html" aria-label="TI Group Startseite">
+      <div class="logo-row"><span class="logo-ti">TI</span><span class="logo-dot">.</span><span class="logo-group">Group</span></div>
+      <div class="logo-tag">Real Estate · Hospitality · Gastro</div>
+    </a>
+    <nav class="nav-desktop" aria-label="Hauptnavigation">
+      <a class="nav-btn" href="index.html">Start</a>
+      <a class="nav-btn" href="ueber-uns.html">Über Uns</a>
+      <a class="nav-btn" href="leistungen.html">Leistungen</a>
+      <a class="nav-btn active" href="projekte.html">Projekte</a>
+      <a class="nav-btn" href="suchprofil.html">Suchprofil</a>
+      <a class="nav-btn nav-cta" href="kontakt.html">Kontakt</a>
+    </nav>
+    <button class="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Start</a><a href="ueber-uns.html">Über Uns</a><a href="leistungen.html">Leistungen</a><a href="projekte.html">Projekte</a><a href="suchprofil.html">Suchprofil</a><a href="kontakt.html">Kontakt</a>
+  </div>
+
+  <section class="page-hero">
+    <div class="crumb"><a href="index.html">Start</a> &nbsp;/&nbsp; Projekte</div>
+    <div class="label">Unsere Projekte</div>
+    <h1>Ein Einblick in die Zukunft,<br>die wir gestalten.</h1>
+    <p class="lead">Von Wohnquartieren über Design-Hotels bis zur Systemgastronomie – eine Auswahl unserer Vorhaben.</p>
+  </section>
+
+  <main>
+    <section class="sec-light pad">
+      <div class="wrap">
+        <div class="filter-row reveal" role="tablist" aria-label="Projekte filtern">
+          <button class="chip active" data-filter="all">Alle</button>
+          <button class="chip" data-filter="wohnen">Wohnimmobilien</button>
+          <button class="chip" data-filter="hotel">Hotellerie</button>
+          <button class="chip" data-filter="gastro">Gastronomie</button>
+        </div>
+
+        <div class="card-grid" style="margin-top:32px">
+          <a class="img-card reveal" data-cat="wohnen" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Wohnimmobilien</div><div class="img-title">Modernes Wohnquartier</div><div class="img-loc">Aachen Innenstadt</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
+          <a class="img-card reveal d1" data-cat="hotel" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Hotellerie</div><div class="img-title">Urbanes Design-Hotel</div><div class="img-loc">Köln Zentrum</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
+          <a class="img-card reveal d2" data-cat="gastro" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Gastronomie</div><div class="img-title">Systemgastronomie Hub</div><div class="img-loc">Düsseldorf Medienhafen</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
+          <a class="img-card reveal" data-cat="wohnen" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Wohnimmobilien</div><div class="img-title">Mikro-Apartments</div><div class="img-loc">Aachen Burtscheid</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
+          <a class="img-card reveal d1" data-cat="hotel" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Hotellerie</div><div class="img-title">Boutique-Hotel</div><div class="img-loc">Maastricht</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
+          <a class="img-card reveal d2" data-cat="gastro" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Gastronomie</div><div class="img-title">Café- &amp; Food-Konzept</div><div class="img-loc">Köln Ehrenfeld</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-band pad">
+      <div class="wrap">
+        <h2 class="reveal">Sie haben ein Objekt für uns?</h2>
+        <p class="reveal d1">Wir prüfen Ihr Angebot schnell und unkompliziert – bankenunabhängig und finanzstark.</p>
+        <div class="reveal d2"><a class="btn btn-primary" href="kontakt.html">Objekt anbieten</a></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div><div class="footer-logo">TI<span>.</span>Group</div><div class="footer-tag">Real Estate · Hospitality · Gastro</div></div>
+        <div class="footer-links"><a class="footer-link" href="ueber-uns.html">Über Uns</a><a class="footer-link" href="leistungen.html">Leistungen</a><a class="footer-link" href="projekte.html">Projekte</a><a class="footer-link" href="suchprofil.html">Suchprofil</a><a class="footer-link" href="kontakt.html">Kontakt</a></div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© <span id="year">2026</span> TI Group. Alle Rechte vorbehalten.</div>
+        <div style="display:flex;gap:24px"><a class="footer-link" href="impressum.html">Impressum</a><a class="footer-link" href="datenschutz.html">Datenschutz</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie hidden" id="cookie-banner">
+    <div class="cookie-text"><strong>Wir verwenden Cookies</strong>Diese Website verwendet Cookies, um Ihnen die bestmögliche Erfahrung zu bieten.</div>
+    <div class="cookie-actions"><button class="cbtn cbtn-no" onclick="dismissCookie('declined')">Ablehnen</button><button class="cbtn cbtn-yes" onclick="dismissCookie('accepted')">Akzeptieren</button></div>
+  </div>
+
+  <script src="assets/main.js"></script>
+</body>
+</html>

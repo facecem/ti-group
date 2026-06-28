@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kontakt – TI Group</title>
+<meta name="description" content="Kontaktieren Sie die TI Group – Ihr Ansprechpartner für Immobilien, Hotelprojekte und Gastroflächen in der Städteregion Aachen." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header id="header">
+    <a class="logo-wrap" href="index.html" aria-label="TI Group Startseite">
+      <div class="logo-row"><span class="logo-ti">TI</span><span class="logo-dot">.</span><span class="logo-group">Group</span></div>
+      <div class="logo-tag">Real Estate · Hospitality · Gastro</div>
+    </a>
+    <nav class="nav-desktop" aria-label="Hauptnavigation">
+      <a class="nav-btn" href="index.html">Start</a>
+      <a class="nav-btn" href="ueber-uns.html">Über Uns</a>
+      <a class="nav-btn" href="leistungen.html">Leistungen</a>
+      <a class="nav-btn" href="projekte.html">Projekte</a>
+      <a class="nav-btn" href="suchprofil.html">Suchprofil</a>
+      <a class="nav-btn nav-cta active" href="kontakt.html">Kontakt</a>
+    </nav>
+    <button class="burger" aria-label="Menü öffnen" aria-expanded="false"><span></span><span></span><span></span></button>
+  </header>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Start</a><a href="ueber-uns.html">Über Uns</a><a href="leistungen.html">Leistungen</a><a href="projekte.html">Projekte</a><a href="suchprofil.html">Suchprofil</a><a href="kontakt.html">Kontakt</a>
+  </div>
+
+  <section class="page-hero">
+    <div class="crumb"><a href="index.html">Start</a> &nbsp;/&nbsp; Kontakt</div>
+    <div class="label">Kontakt</div>
+    <h1>Sprechen Sie<br>uns an.</h1>
+    <p class="lead">Ob Makler, Eigentümer oder Investor – wir sind Ihr Ansprechpartner für Immobilien, Hotelprojekte und Gastroflächen.</p>
+  </section>
+
+  <main>
+    <section class="sec-light pad">
+      <div class="wrap kontakt-grid">
+        <div class="reveal">
+          <div class="label">Direkt erreichen</div>
+          <h2 class="heading" style="margin-bottom:24px">Wir freuen uns<br>auf Ihre Nachricht.</h2>
+          <p class="text">Schreiben Sie uns über das Formular oder direkt per E-Mail – wir melden uns kurzfristig zurück.</p>
+          <div class="kontakt-info">
+            <div class="kontakt-info-item"><div class="lbl">Adresse</div><div class="val">Städteregion Aachen, Deutschland</div></div>
+            <div class="kontakt-info-item"><div class="lbl">E-Mail</div><div class="val"><a href="mailto:info@ti-group.de" style="border-bottom:1px solid var(--gold)">info@ti-group.de</a></div></div>
+            <div class="kontakt-info-item"><div class="lbl">Geschäftsfelder</div><div class="val">Real Estate · Hospitality · Gastro</div></div>
+          </div>
+        </div>
+        <div class="reveal d1">
+          <form id="kontakt-form">
+            <label class="lbl" for="f-name" style="display:block;margin-bottom:-6px;color:var(--ink-3);font-size:10px;letter-spacing:.16em;text-transform:uppercase">Name</label>
+            <input id="f-name" class="form-input" type="text" placeholder="Ihr Name" required>
+            <label class="lbl" for="f-mail" style="display:block;margin-bottom:-6px;color:var(--ink-3);font-size:10px;letter-spacing:.16em;text-transform:uppercase">E-Mail</label>
+            <input id="f-mail" class="form-input" type="email" placeholder="E-Mail-Adresse" required>
+            <label class="lbl" for="f-tel" style="display:block;margin-bottom:-6px;color:var(--ink-3);font-size:10px;letter-spacing:.16em;text-transform:uppercase">Telefon (optional)</label>
+            <input id="f-tel" class="form-input" type="tel" placeholder="Telefonnummer">
+            <label class="lbl" for="f-subj" style="display:block;margin-bottom:-6px;color:var(--ink-3);font-size:10px;letter-spacing:.16em;text-transform:uppercase">Betreff</label>
+            <input id="f-subj" class="form-input" type="text" placeholder="Worum geht es?" required>
+            <label class="lbl" for="f-msg" style="display:block;margin-bottom:-6px;color:var(--ink-3);font-size:10px;letter-spacing:.16em;text-transform:uppercase">Nachricht</label>
+            <textarea id="f-msg" class="form-input" placeholder="Ihre Nachricht…" required></textarea>
+            <button type="submit" class="form-btn">Nachricht senden ▸</button>
+          </form>
+          <div class="form-success hidden" id="form-success">
+            <div class="form-success-title">Vielen Dank!</div>
+            <p class="form-success-text">Wir melden uns in Kürze bei Ihnen.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-top">
+        <div><div class="footer-logo">TI<span>.</span>Group</div><div class="footer-tag">Real Estate · Hospitality · Gastro</div></div>
+        <div class="footer-links"><a class="footer-link" href="ueber-uns.html">Über Uns</a><a class="footer-link" href="leistungen.html">Leistungen</a><a class="footer-link" href="projekte.html">Projekte</a><a class="footer-link" href="suchprofil.html">Suchprofil</a><a class="footer-link" href="kontakt.html">Kontakt</a></div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-copy">© <span id="year">2026</span> TI Group. Alle Rechte vorbehalten.</div>
+        <div style="display:flex;gap:24px"><a class="footer-link" href="impressum.html">Impressum</a><a class="footer-link" href="datenschutz.html">Datenschutz</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="cookie hidden" id="cookie-banner">
+    <div class="cookie-text"><strong>Wir verwenden Cookies</strong>Diese Website verwendet Cookies, um Ihnen die bestmögliche Erfahrung zu bieten.</div>
+    <div class="cookie-actions"><button class="cbtn cbtn-no" onclick="dismissCookie('declined')">Ablehnen</button><button class="cbtn cbtn-yes" onclick="dismissCookie('accepted')">Akzeptieren</button></div>
+  </div>
+
+  <script src="assets/main.js"></script>
+</body>
+</html>
