@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Entwurf 2 · Standorte – TI Group</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="../assets/fonts.css" />
+<style>
+/* Entwurf 2 „Standorte“: Die Startseite erzählt über eine eigene Karte des Rheinlands,
+   wo die TI Group sitzt und was sie dort gebaut hat. Weiß, Hellgrau, Schwarz als Schrift,
+   Gold nur für die Standortpunkte und Unterstreichungen. */
+:root {
+  --black: #000; --white: #fff; --gold: #F8D24F; --gold-deep: #E3B93A; --grey: #F5F5F5; --grey-text: #666; --line: #E5E5E5;
+  --head: 'Montserrat', Arial, sans-serif; --sans: 'Open Sans', Arial, sans-serif;
+  --g: clamp(20px, 4.5vw, 64px); --top: 76px;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--white); color: var(--black); font: 300 17px/1.7 var(--sans); }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { font-family: var(--head); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+
+.top { position: sticky; top: 0; z-index: 20; height: var(--top); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--g); background: rgba(255,255,255,.96); border-bottom: 1px solid var(--line); }
+.logo { font-family: var(--head); font-weight: 700; font-size: 1.3rem; letter-spacing: .08em; }
+.logo span { color: var(--gold-deep); }
+.logo small { font-weight: 400; }
+.nav { display: flex; gap: 28px; font-family: var(--head); font-weight: 500; font-size: 15px; }
+.nav a { padding: 4px 0; border-bottom: 2px solid transparent; }
+.nav a:hover { border-color: var(--gold); }
+
+/* Atlas: links Text und Standortliste, rechts die Karte – sie bleibt beim Scrollen stehen */
+.atlas { display: grid; grid-template-columns: 1fr 1fr; }
+.atlas-text { padding: clamp(56px, 10vh, 120px) var(--g) clamp(56px, 8vh, 96px); }
+.kicker { font-size: 14px; color: var(--grey-text); margin-bottom: 26px; }
+.atlas h1 { font-size: clamp(2.5rem, 5vw, 4.6rem); margin-bottom: 26px; }
+.lead { font-size: 1.12rem; max-width: 30em; margin-bottom: 36px; }
+.actions { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; }
+.btn { display: inline-block; font-family: var(--head); font-weight: 600; font-size: 15px; padding: 15px 28px; background: var(--black); color: var(--white); transition: background .2s, color .2s; }
+.btn:hover { background: var(--gold); color: var(--black); }
+.link { font-family: var(--head); font-weight: 600; font-size: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 3px; }
+.link:hover { border-color: var(--black); }
+
+.places { margin-top: clamp(64px, 12vh, 128px); }
+.places h2 { font-size: 13px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--grey-text); margin-bottom: 12px; }
+.place { display: grid; grid-template-columns: 112px 1fr; gap: 20px; align-items: center; padding: 18px 0; border-top: 1px solid var(--line); }
+.places .place:last-child { border-bottom: 1px solid var(--line); }
+.place img { width: 112px; aspect-ratio: 4 / 3; object-fit: cover; }
+.place .ort { display: block; font-size: 14px; color: var(--grey-text); }
+.place h3 { font-size: 1.2rem; margin: 2px 0; }
+.place p { font-size: 15px; line-height: 1.5; }
+.place.hq img { object-fit: cover; }
+a.place:hover h3, .place.active h3 { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+
+.atlas-map { background: var(--grey); }
+.map-sticky { position: sticky; top: var(--top); height: calc(100svh - var(--top)); display: flex; flex-direction: column; justify-content: center; padding: clamp(24px, 4vw, 56px); }
+.map-sticky svg { width: 100%; height: auto; max-height: 100%; }
+.map-note { font-size: 13px; color: var(--grey-text); margin-top: 12px; }
+.grid-l { stroke: #DCDCDC; stroke-width: 1; }
+.grid-t { font: 400 10px var(--sans); fill: #9A9A9A; }
+.river { fill: none; stroke: #CFCFCF; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.river-t { font: italic 400 12px var(--sans); fill: #9A9A9A; letter-spacing: .2em; }
+.ref circle { fill: #9A9A9A; }
+.ref text { font: 400 11px var(--sans); fill: var(--grey-text); }
+.loc circle { fill: var(--gold); stroke: var(--black); stroke-width: 1.2; transition: r .25s; }
+.loc text { font: 600 12.5px var(--head); fill: var(--black); }
+.loc.active circle { r: 10; }
+.loc .halo { fill: none; stroke: var(--gold); stroke-width: 1; opacity: 0; }
+.loc.active .halo { opacity: 1; }
+
+/* Kennzahlen als ruhige Zeile */
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--black); border-bottom: 1px solid var(--line); margin: 0 var(--g); }
+.fact { padding: 32px 24px 32px 0; }
+.fact + .fact { padding-left: 24px; border-left: 1px solid var(--line); }
+.fact b { display: block; font-family: var(--head); font-weight: 600; font-size: clamp(1.8rem, 3.2vw, 2.8rem); letter-spacing: -0.02em; line-height: 1.1; }
+.fact span { font-size: 14.5px; color: var(--grey-text); }
+
+/* Geschäftsfelder als Reiter */
+.fields { padding: clamp(80px, 12vh, 140px) var(--g); }
+.fields-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 32px; }
+.fields-head h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab { font-family: var(--head); font-weight: 600; font-size: 15px; padding: 12px 22px; border: 1px solid var(--line); background: var(--white); cursor: pointer; }
+.tab[aria-selected="true"] { border-color: var(--black); box-shadow: inset 0 -3px 0 var(--gold); }
+.panel { display: grid; grid-template-columns: 7fr 5fr; gap: 0; background: var(--grey); }
+.panel[hidden] { display: none; }
+.panel img, .panel .brands { width: 100%; height: 100%; min-height: 420px; object-fit: cover; }
+.panel .brands { display: flex; flex-direction: column; justify-content: center; padding: 0 10%; font-family: var(--head); font-weight: 600; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; letter-spacing: -0.02em; background: var(--white); border: 1px solid var(--line); }
+.panel-text { padding: clamp(32px, 5vw, 64px); align-self: center; }
+.panel-text h3 { font-size: 1.6rem; margin-bottom: 14px; }
+.panel-text p { margin-bottom: 24px; }
+
+.contact { margin: 0 var(--g) clamp(64px, 10vh, 120px); padding: clamp(40px, 6vw, 72px); border: 1px solid var(--black); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 32px; }
+.contact h2 { font-size: clamp(1.6rem, 2.6vw, 2.2rem); margin-bottom: 8px; }
+.contact p { color: var(--grey-text); max-width: 34em; }
+
+.foot { border-top: 1px solid var(--line); padding: 32px var(--g); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px; color: var(--grey-text); }
+.foot nav { display: flex; gap: 24px; flex-wrap: wrap; }
+.foot a:hover { color: var(--black); }
+:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; }
+
+@media (max-width: 960px) {
+  .nav a:not(:last-child) { display: none; }
+  .atlas { grid-template-columns: 1fr; }
+  .atlas-map { order: 2; }
+  .atlas-text { display: contents; }
+  .atlas-text > .intro { padding: 48px var(--g) 8px; order: 1; }
+  .places { order: 3; padding: 0 var(--g) 48px; margin-top: 32px; }
+  .map-sticky { position: static; height: auto; padding: 20px; }
+  .facts { grid-template-columns: 1fr 1fr; }
+  .fact:nth-child(3) { padding-left: 0; border-left: none; }
+  .fact:nth-child(n+3) { border-top: 1px solid var(--line); }
+  .panel { grid-template-columns: 1fr; }
+  .panel img, .panel .brands { min-height: 0; aspect-ratio: 4 / 3; }
+  .place { grid-template-columns: 88px 1fr; }
+  .place img { width: 88px; }
+}
+</style>
+</head>
+<body>
+  <header class="top">
+    <a class="logo" href="../index.html">TI<span>.</span><small>Group</small></a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <a href="../ueber-uns.html">Über uns</a>
+      <a href="../leistungen.html">Leistungen</a>
+      <a href="../projekte.html">Projekte</a>
+      <a href="../suchprofil.html">Suchprofil</a>
+      <a href="../kontakt.html">Kontakt</a>
+    </nav>
+  </header>
+
+  <section class="atlas">
+    <div class="atlas-text">
+      <div class="intro">
+        <p class="kicker">Inhabergeführt seit 2000 · Städteregion Aachen</p>
+        <h1>Aus der Region.<br>Für die Zukunft.</h1>
+        <p class="lead">Die TI Group erwirbt, saniert und betreibt Immobilien, Hotels und Gastronomie im Rheinland – eigenfinanziert und mit langfristigem Blick.</p>
+        <div class="actions"><a class="btn" href="../suchprofil.html">Objekt anbieten</a><a class="link" href="../projekte.html">Alle Projekte</a></div>
+      </div>
+
+      <div class="places">
+        <h2>Unsere Standorte</h2>
+        <div class="place hq" data-loc="wuerselen"><img src="../assets/bilder/kaisersruh.webp" width="1600" height="900" loading="lazy" alt="Kaisersruh: weiße Villa mit Säulenportal"><div><span class="ort">Würselen</span><h3>Firmensitz</h3><p>Tahir Investments GmbH, Fastradaallee 3</p></div></div>
+        <a class="place" data-loc="eschweiler" href="../projekte.html"><img src="../assets/projekte/quartier-hastenrath.webp" width="1365" height="1024" loading="lazy" alt="Quartier Hastenrath"><div><span class="ort">Eschweiler · Wohnen</span><h3>Quartier Hastenrath</h3><p>29 Einheiten, Planung für bis zu 72</p></div></a>
+        <a class="place" data-loc="eschweiler" href="../projekte.html"><img src="../assets/projekte/neustrasse-eschweiler.webp" width="1365" height="1024" loading="lazy" alt="Neustraße Eschweiler"><div><span class="ort">Eschweiler · Wohn- und Geschäftshaus</span><h3>Neustraße</h3><p>770 m² Praxis, 672 m² Wohnen</p></div></a>
+        <a class="place" data-loc="monschau" href="../projekte.html"><img src="../assets/projekte/besttime-monschau.webp" width="1365" height="1024" loading="lazy" alt="besttime Hotel Monschau"><div><span class="ort">Monschau · Hotellerie</span><h3>besttime Hotel</h3><p>29 Zimmer im Baudenkmal von 1896</p></div></a>
+        <a class="place" data-loc="mg" href="../projekte.html"><img src="../assets/projekte/kammerhof-moenchengladbach.webp" width="1365" height="1024" loading="lazy" alt="Kammerhof Mönchengladbach"><div><span class="ort">Mönchengladbach · Wohnen</span><h3>Kammerhof</h3><p>28 Wohneinheiten auf 1.350 m²</p></div></a>
+        <a class="place" data-loc="boppard" href="../projekte.html"><img src="../assets/projekte/besttime-boppard.webp" width="1365" height="1024" loading="lazy" alt="besttime Hotel Boppard"><div><span class="ort">Boppard · Hotellerie</span><h3>besttime Hotel</h3><p>89 Zimmer auf 4.500 m² direkt am Rhein</p></div></a>
+      </div>
+    </div>
+
+    <div class="atlas-map">
+      <div class="map-sticky">
+        <!-- Schematische Karte, maßstäblich nach Längen-/Breitengrad (5,85–7,75° O, 50,10–51,35° N) -->
+        <svg viewBox="0 0 480 500" role="img" aria-label="Karte des Rheinlands mit den Standorten der TI Group: Würselen, Aachen, Eschweiler, Monschau, Mönchengladbach und Boppard">
+          <g>
+            <line class="grid-l" x1="0" y1="140" x2="480" y2="140"/><text class="grid-t" x="4" y="135">51° N</text>
+            <line class="grid-l" x1="0" y1="340" x2="480" y2="340"/><text class="grid-t" x="4" y="335">50,5° N</text>
+            <line class="grid-l" x1="164" y1="0" x2="164" y2="500"/><text class="grid-t" x="168" y="494">6,5° O</text>
+            <line class="grid-l" x1="291" y1="0" x2="291" y2="500"/><text class="grid-t" x="295" y="494">7° O</text>
+            <line class="grid-l" x1="417" y1="0" x2="417" y2="500"/><text class="grid-t" x="421" y="494">7,5° O</text>
+          </g>
+          <polyline class="river" points="223,0 230,48 262,92 278,128 283,164 300,205 319,244 349,308 392,364 443,396 446,420 440,448 458,500"/>
+          <text class="river-t" x="300" y="118" transform="rotate(62 300 118)">RHEIN</text>
+          <g class="ref">
+            <circle cx="233" cy="49" r="3"/><text x="241" y="53">Düsseldorf</text>
+            <circle cx="280" cy="165" r="3"/><text x="288" y="169">Köln</text>
+            <circle cx="316" cy="246" r="3"/><text x="324" y="250">Bonn</text>
+            <circle cx="440" cy="398" r="3"/><text x="430" y="394" text-anchor="end">Koblenz</text>
+          </g>
+          <g class="ref"><circle cx="59" cy="230" r="3"/><text x="51" y="244" text-anchor="end">Aachen</text></g>
+          <g class="loc" data-loc="wuerselen"><circle class="halo" cx="70" cy="213" r="18"/><circle cx="70" cy="213" r="6.5"/><text x="64" y="200" text-anchor="end">Würselen</text></g>
+          <g class="loc" data-loc="eschweiler"><circle class="halo" cx="104" cy="213" r="18"/><circle cx="104" cy="213" r="6.5"/><text x="114" y="208">Eschweiler</text></g>
+          <g class="loc" data-loc="monschau"><circle class="halo" cx="99" cy="318" r="18"/><circle cx="99" cy="318" r="6.5"/><text x="111" y="322">Monschau</text></g>
+          <g class="loc" data-loc="mg"><circle class="halo" cx="150" cy="66" r="18"/><circle cx="150" cy="66" r="6.5"/><text x="140" y="56" text-anchor="end">Mönchengladbach</text></g>
+          <g class="loc" data-loc="boppard"><circle class="halo" cx="440" cy="448" r="18"/><circle cx="440" cy="448" r="6.5"/><text x="428" y="453" text-anchor="end">Boppard</text></g>
+        </svg>
+        <p class="map-note">Schematische Darstellung · Gold: Standorte der TI Group</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="facts">
+    <div class="fact"><b>14</b><span>Betriebe</span></div>
+    <div class="fact"><b>20.139 m²</b><span>Fläche im eigenen Bestand und Betrieb</span></div>
+    <div class="fact"><b>73.337</b><span>Übernachtungen jährlich</span></div>
+    <div class="fact"><b>300.000+</b><span>Bestellungen jährlich</span></div>
+  </div>
+
+  <section class="fields">
+    <div class="fields-head">
+      <h2>Drei Geschäftsfelder, ein Haus.</h2>
+      <div class="tabs" role="tablist" aria-label="Geschäftsfelder">
+        <button class="tab" role="tab" id="t0" aria-controls="p0" aria-selected="true">Immobilien</button>
+        <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="false">Hotellerie</button>
+        <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false">Gastronomie</button>
+      </div>
+    </div>
+    <div class="panel" id="p0" role="tabpanel" aria-labelledby="t0">
+      <img src="../assets/projekte/kammerhof-moenchengladbach.webp" width="1365" height="1024" loading="lazy" alt="Kammerhof in Mönchengladbach nach der Sanierung">
+      <div class="panel-text"><h3>Immobilien</h3><p>Wir erwerben, sanieren und halten Wohnimmobilien im Rheinland. Mit unserer eigenen Bau- und Sanierungseinheit Aachener Baukultur setzen wir Projekte schnell und in eigener Hand um.</p><a class="link" href="../leistungen.html#immobilien">Mehr zu Immobilien</a></div>
+    </div>
+    <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1" hidden>
+      <img src="../assets/projekte/besttime-boppard.webp" width="1365" height="1024" loading="lazy" alt="besttime Hotel in Boppard am Rhein">
+      <div class="panel-text"><h3>Hotellerie</h3><p>Seit 2009 entwickeln und betreiben wir Hotels unter unseren eigenen Marken besttime, bestprice und bp24 – von Boppard bis Monschau.</p><a class="link" href="../leistungen.html#hotellerie">Mehr zur Hotellerie</a></div>
+    </div>
+    <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+      <div class="brands"><span>Goldies</span><span>Napoli Express</span></div>
+      <div class="panel-text"><h3>Gastronomie</h3><p>Als Franchisepartner von Goldies und mit unserem Eigenkonzept Napoli Express betreiben wir skalierbare Systemgastronomie an mehreren Standorten.</p><a class="link" href="../leistungen.html#gastronomie">Mehr zur Gastronomie</a></div>
+    </div>
+  </section>
+
+  <section class="contact">
+    <div><h2>Ihr Objekt passt in unser Suchprofil?</h2><p>Wir prüfen schnell, entscheiden selbst und melden uns innerhalb von 72 Stunden mit einer indikativen Rückmeldung.</p></div>
+    <div class="actions"><a class="btn" href="../kontakt.html?betreff=Objektangebot#kontakt-form">Objekt anbieten</a><a class="link" href="tel:+4924143010030">0241 430 100 30</a></div>
+  </section>
+
+  <footer class="foot">
+    <span>© 2026 TI Group · Tahir Investments GmbH · Fastradaallee 3, 52146 Würselen</span>
+    <nav><a href="../impressum.html">Impressum</a><a href="../datenschutz.html">Datenschutz</a><a href="index.html">Alle Entwürfe</a></nav>
+  </footer>
+<script>
+  // Standortliste ↔ Karte: Maus oder Fokus auf einem Eintrag markiert den Ort
+  function mark(key) {
+    document.querySelectorAll('.loc').forEach(function (g) { g.classList.toggle('active', g.dataset.loc === key); });
+  }
+  document.querySelectorAll('.place').forEach(function (p) {
+    p.addEventListener('mouseenter', function () { mark(p.dataset.loc); });
+    p.addEventListener('focus', function () { mark(p.dataset.loc); });
+    p.addEventListener('mouseleave', function () { mark(null); });
+  });
+  // Reiter Geschäftsfelder
+  var tabs = document.querySelectorAll('.tab');
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      tabs.forEach(function (o) {
+        var sel = o === t;
+        o.setAttribute('aria-selected', String(sel));
+        document.getElementById(o.getAttribute('aria-controls')).hidden = !sel;
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Entwurf 3 · Register – TI Group</title>
+<meta name="robots" content="noindex" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="../assets/fonts.css" />
+<style>
+/* Entwurf 3 „Register“: Seitenleiste statt Kopfzeile, große Typografie, Projekte als Register.
+   Alles auf Weiß; Schwarz nur für Schrift und Linien, Gold nur als Unterstreichung und Markierung. */
+:root {
+  --black: #000; --white: #fff; --gold: #F8D24F; --gold-deep: #E3B93A; --grey: #F5F5F5; --grey-text: #666; --line: #E5E5E5;
+  --head: 'Montserrat', Arial, sans-serif; --sans: 'Open Sans', Arial, sans-serif;
+  --side: 264px; --g: clamp(20px, 4vw, 56px);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--white); color: var(--black); font: 300 17px/1.7 var(--sans); }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { font-family: var(--head); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+
+/* Seitenleiste */
+.side { position: fixed; inset: 0 auto 0 0; width: var(--side); border-right: 1px solid var(--line); padding: 36px 32px; display: flex; flex-direction: column; gap: 48px; background: var(--white); z-index: 10; }
+.logo { font-family: var(--head); font-weight: 700; font-size: 1.4rem; letter-spacing: .08em; }
+.logo span { color: var(--gold-deep); }
+.logo small { font-weight: 400; }
+.logo em { display: block; font: 400 12px/1.5 var(--sans); letter-spacing: 0; color: var(--grey-text); margin-top: 6px; }
+.side nav { display: flex; flex-direction: column; gap: 4px; font-family: var(--head); font-weight: 500; font-size: 16px; }
+.side nav a { padding: 6px 0; display: flex; gap: 12px; }
+.side nav a i { font-style: normal; font-size: 12px; color: var(--grey-text); width: 18px; padding-top: 3px; }
+.side nav a:hover span, .side nav a.on span { box-shadow: inset 0 -2px 0 var(--gold); }
+.side .reach { margin-top: auto; font-size: 14px; line-height: 1.6; color: var(--grey-text); }
+.side .reach a { color: var(--black); display: inline-block; }
+.side .reach a:hover { box-shadow: inset 0 -1px 0 var(--gold); }
+
+main { margin-left: var(--side); }
+.sec { padding: clamp(64px, 10vh, 120px) var(--g); }
+.sec + .sec { border-top: 1px solid var(--line); }
+/* Zwölfer-Raster mit Randspalte für die Abschnittsnamen */
+.row { display: grid; grid-template-columns: 2fr 10fr; gap: 0 clamp(24px, 3vw, 48px); }
+.mark { font-family: var(--head); font-weight: 600; font-size: 13px; color: var(--grey-text); padding-top: 10px; }
+
+/* Hero */
+.hero { padding-top: clamp(56px, 12vh, 140px); }
+.hero h1 { font-weight: 500; font-size: clamp(3rem, 8.2vw, 8.4rem); letter-spacing: -0.045em; line-height: .95; }
+.hero h1 em { font-style: normal; color: var(--grey-text); }
+.hero-sub { display: grid; grid-template-columns: 2fr 5fr 5fr; gap: 0 clamp(24px, 3vw, 48px); margin-top: clamp(40px, 7vh, 72px); align-items: end; }
+.hero-sub p { font-size: 1.1rem; max-width: 28em; }
+.actions { display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-self: end; }
+.btn { display: inline-block; font-family: var(--head); font-weight: 600; font-size: 15px; padding: 15px 28px; background: var(--black); color: var(--white); transition: background .2s, color .2s; }
+.btn:hover { background: var(--gold); color: var(--black); }
+.link { font-family: var(--head); font-weight: 600; font-size: 15px; border-bottom: 2px solid var(--gold); padding-bottom: 3px; }
+.link:hover { border-color: var(--black); }
+.hero-img { margin-top: clamp(48px, 8vh, 88px); }
+.hero-img img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+.hero-img figcaption { font-size: 13px; color: var(--grey-text); margin-top: 10px; }
+
+/* Profil in zwei Textspalten */
+.cols { columns: 2; column-gap: clamp(32px, 4vw, 64px); font-size: 17px; }
+.cols p + p { margin-top: 1em; }
+.cols .first::first-line { font-weight: 400; }
+.figures { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: clamp(48px, 7vh, 80px); border-top: 1px solid var(--black); }
+.figures div { padding: 20px 20px 0 0; }
+.figures b { display: block; white-space: nowrap; font-family: var(--head); font-weight: 500; font-size: clamp(1.7rem, 3vw, 2.9rem); letter-spacing: -0.035em; line-height: 1.05; }
+.figures span { font-size: 14px; color: var(--grey-text); }
+
+/* Geschäftsfelder als Liste */
+.biz { border-top: 1px solid var(--black); }
+.biz a { display: grid; grid-template-columns: 5fr 6fr 1fr; gap: 0 clamp(24px, 3vw, 48px); padding: 28px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+.biz h3 { font-weight: 500; font-size: clamp(1.8rem, 3.4vw, 3rem); letter-spacing: -0.03em; }
+.biz p { font-size: 16px; color: var(--grey-text); }
+.biz .go { justify-self: end; font-family: var(--head); font-size: 1.4rem; transition: transform .25s; }
+.biz a:hover .go { transform: translateX(6px); }
+.biz a:hover h3 { box-shadow: inset 0 -3px 0 var(--gold); display: inline; }
+
+/* Projekt-Register */
+.reg { width: 100%; border-collapse: collapse; }
+.reg th { font: 600 12px var(--head); color: var(--grey-text); text-align: left; padding: 0 16px 12px 0; border-bottom: 1px solid var(--black); }
+.reg td { padding: 20px 16px 20px 0; border-bottom: 1px solid var(--line); vertical-align: baseline; font-size: 15.5px; }
+.reg td.nr { font: 600 13px var(--head); color: var(--grey-text); width: 48px; }
+.reg td.obj { font: 600 1.15rem/1.3 var(--head); letter-spacing: -0.01em; }
+.reg td.obj img { display: none; }
+.reg tr[data-img] { cursor: pointer; }
+.reg tr[data-img]:hover td.obj { text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+.peek { position: fixed; width: 300px; aspect-ratio: 4 / 3; object-fit: cover; pointer-events: none; opacity: 0; transition: opacity .2s; z-index: 30; }
+.peek.show { opacity: 1; }
+
+/* Abschluss: große Frage als Link */
+.ask .big { display: block; font-family: var(--head); font-weight: 500; font-size: clamp(2.2rem, 5.6vw, 5.4rem); letter-spacing: -0.04em; line-height: 1; }
+.ask .big span { box-shadow: inset 0 -0.08em 0 var(--gold); }
+.ask .big:hover span { box-shadow: inset 0 -0.08em 0 var(--black); }
+.ask p { margin-top: 28px; color: var(--grey-text); max-width: 34em; }
+
+.foot { padding: 28px var(--g); border-top: 1px solid var(--line); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-size: 14px; color: var(--grey-text); }
+.foot nav { display: flex; gap: 24px; }
+.foot a:hover { color: var(--black); }
+:focus-visible { outline: 2px solid var(--black); outline-offset: 3px; }
+
+@media (max-width: 1000px) {
+  .side { position: sticky; inset: 0 auto auto 0; width: auto; height: auto; flex-direction: row; align-items: center; justify-content: space-between; padding: 16px var(--g); border-right: none; border-bottom: 1px solid var(--line); gap: 16px; }
+  .logo em, .side .reach, .side nav a i { display: none; }
+  .side nav { flex-direction: row; gap: 16px; font-size: 14px; overflow-x: auto; }
+  .side nav a:not(.keep) { display: none; }
+  main { margin-left: 0; }
+  .row, .hero-sub { grid-template-columns: 1fr; gap: 16px; }
+  .actions { justify-self: start; }
+  .hero-img img { aspect-ratio: 4 / 3; }
+  .cols { columns: 1; }
+  .figures { grid-template-columns: 1fr 1fr; }
+  .figures div:nth-child(n+3) { border-top: 1px solid var(--line); margin-top: 12px; }
+  .biz a { grid-template-columns: 1fr; gap: 8px; }
+  .biz .go { display: none; }
+  .reg thead, .reg td.nr, .reg td.use { display: none; }
+  .reg tr { display: grid; grid-template-columns: 96px 1fr; gap: 4px 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+  .reg td { padding: 0; border: none; }
+  .reg td.obj { display: contents; }
+  .reg td.obj img { display: block; grid-row: span 3; width: 96px; aspect-ratio: 4 / 3; object-fit: cover; }
+  .peek { display: none; }
+}
+</style>
+</head>
+<body>
+  <aside class="side">
+    <a class="logo" href="../index.html">TI<span>.</span><small>Group</small><em>Immobilien · Hotellerie · Gastronomie</em></a>
+    <nav aria-label="Hauptnavigation">
+      <a class="on" href="#"><i>01</i><span>Start</span></a>
+      <a href="../ueber-uns.html"><i>02</i><span>Über uns</span></a>
+      <a href="../leistungen.html"><i>03</i><span>Leistungen</span></a>
+      <a href="../projekte.html"><i>04</i><span>Projekte</span></a>
+      <a href="../suchprofil.html"><i>05</i><span>Suchprofil</span></a>
+      <a class="keep" href="../kontakt.html"><i>06</i><span>Kontakt</span></a>
+    </nav>
+    <div class="reach">
+      Tahir Investments GmbH<br>Fastradaallee 3<br>52146 Würselen<br><br>
+      <a href="tel:+4924143010030">0241 430 100 30</a><br>
+      <a href="../kontakt.html">Nachricht schreiben</a>
+    </div>
+  </aside>
+
+  <main>
+    <section class="sec hero">
+      <h1>Aus der Region.<br><em>Für die Zukunft.</em></h1>
+      <div class="hero-sub">
+        <span></span>
+        <p>Die TI Group erwirbt, saniert und betreibt Immobilien, Hotels und Gastronomie im Rheinland – als Familienunternehmen, eigenfinanziert und mit langfristigem Blick.</p>
+        <div class="actions"><a class="btn" href="../suchprofil.html">Objekt anbieten</a><a class="link" href="#projekte">Projekte</a></div>
+      </div>
+      <figure class="hero-img">
+        <img src="../assets/bilder/kaisersruh.webp" width="1600" height="900" alt="Kaisersruh: weiße Villa mit Säulenportal, Mansarddach und Gartenanlage">
+        <figcaption>Kaisersruh</figcaption>
+      </figure>
+    </section>
+
+    <section class="sec">
+      <div class="row">
+        <div class="mark">Profil</div>
+        <div>
+          <div class="cols">
+            <p class="first">Die TI Group ist ein inhabergeführtes Familienunternehmen aus der Städteregion Aachen. Seit 2000 investiert die Familie in Immobilien, seit 2009 in die Hotellerie.</p>
+            <p>Mit dem Eintritt von Sufiyan Tahir 2015 und der Gründung der Tahir Investments GmbH 2017 entstand daraus eine Gruppe mit heute 14 Betrieben in drei Geschäftsfeldern – aufgebaut ohne externe Investoren.</p>
+          </div>
+          <div class="figures">
+            <div><b>14</b><span>Betriebe</span></div>
+            <div><b>20.139 m²</b><span>Fläche im eigenen Bestand und Betrieb</span></div>
+            <div><b>73.337</b><span>Übernachtungen jährlich</span></div>
+            <div><b>300.000+</b><span>Bestellungen jährlich</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="row">
+        <div class="mark">Geschäftsfelder</div>
+        <div class="biz">
+          <a href="../leistungen.html#immobilien"><h3>Immobilien</h3><p>Erwerb, Sanierung und Bestand von Wohnimmobilien im Rheinland – mit der eigenen Bau- und Sanierungseinheit Aachener Baukultur.</p><span class="go" aria-hidden="true">→</span></a>
+          <a href="../leistungen.html#hotellerie"><h3>Hotellerie</h3><p>Seit 2009 Hotels unter den eigenen Marken besttime, bestprice und bp24 – von Boppard bis Monschau.</p><span class="go" aria-hidden="true">→</span></a>
+          <a href="../leistungen.html#gastronomie"><h3>Gastronomie</h3><p>Franchisepartner von Goldies und Eigenkonzept Napoli Express, an mehreren Standorten.</p><span class="go" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="projekte">
+      <div class="row">
+        <div class="mark">Projekte</div>
+        <table class="reg">
+          <thead><tr><th>Nr.</th><th>Objekt</th><th>Ort</th><th class="use">Nutzung</th><th>Eckdaten</th></tr></thead>
+          <tbody>
+            <tr data-img="../assets/projekte/quartier-hastenrath.webp" onclick="location.href='../projekte.html'"><td class="nr">01</td><td class="obj"><img src="../assets/projekte/quartier-hastenrath.webp" loading="lazy" alt=""><a href="../projekte.html">Quartier Hastenrath</a></td><td>Eschweiler</td><td class="use">Wohnen</td><td>29 Einheiten, Planung für bis zu 72</td></tr>
+            <tr data-img="../assets/projekte/besttime-boppard.webp" onclick="location.href='../projekte.html'"><td class="nr">02</td><td class="obj"><img src="../assets/projekte/besttime-boppard.webp" loading="lazy" alt=""><a href="../projekte.html">besttime Hotel</a></td><td>Boppard</td><td class="use">Hotellerie</td><td>89 Zimmer, 4.500 m²</td></tr>
+            <tr data-img="../assets/projekte/besttime-monschau.webp" onclick="location.href='../projekte.html'"><td class="nr">03</td><td class="obj"><img src="../assets/projekte/besttime-monschau.webp" loading="lazy" alt=""><a href="../projekte.html">besttime Hotel</a></td><td>Monschau</td><td class="use">Hotellerie</td><td>29 Zimmer, Baujahr 1896</td></tr>
+            <tr data-img="../assets/projekte/kammerhof-moenchengladbach.webp" onclick="location.href='../projekte.html'"><td class="nr">04</td><td class="obj"><img src="../assets/projekte/kammerhof-moenchengladbach.webp" loading="lazy" alt=""><a href="../projekte.html">Kammerhof</a></td><td>Mönchengladbach</td><td class="use">Wohnen</td><td>28 Wohneinheiten, 1.350 m²</td></tr>
+            <tr data-img="../assets/projekte/neustrasse-eschweiler.webp" onclick="location.href='../projekte.html'"><td class="nr">05</td><td class="obj"><img src="../assets/projekte/neustrasse-eschweiler.webp" loading="lazy" alt=""><a href="../projekte.html">Neustraße</a></td><td>Eschweiler</td><td class="use">Wohn- und Geschäftshaus</td><td>770 m² Praxis, 672 m² Wohnen</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="sec ask">
+      <div class="row">
+        <div class="mark">Ankauf</div>
+        <div>
+          <a class="big" href="../kontakt.html?betreff=Objektangebot#kontakt-form"><span>Sie haben ein Objekt?</span> →</a>
+          <p>Wir prüfen schnell, entscheiden selbst und melden uns innerhalb von 72 Stunden mit einer indikativen Rückmeldung. <a class="link" href="../suchprofil.html">Unser Suchprofil</a></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <span>© 2026 TI Group</span>
+      <nav><a href="../impressum.html">Impressum</a><a href="../datenschutz.html">Datenschutz</a><a href="index.html">Alle Entwürfe</a></nav>
+    </footer>
+  </main>
+
+  <img class="peek" id="peek" alt="" aria-hidden="true">
+<script>
+  // Bildvorschau folgt dem Mauszeiger über dem Projekt-Register (nur mit Maus)
+  var peek = document.getElementById('peek');
+  if (window.matchMedia('(hover: hover)').matches) {
+    document.querySelectorAll('.reg tr[data-img]').forEach(function (tr) {
+      tr.addEventListener('mouseenter', function () { peek.src = tr.dataset.img; peek.classList.add('show'); });
+      tr.addEventListener('mouseleave', function () { peek.classList.remove('show'); });
+      tr.addEventListener('mousemove', function (e) {
+        peek.style.left = Math.min(e.clientX + 24, window.innerWidth - 324) + 'px';
+        peek.style.top = Math.max(16, e.clientY - 220) + 'px';
+      });
+    });
+  }
+</script>
+</body>
+</html>
