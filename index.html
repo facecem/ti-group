@@ -12,6 +12,7 @@
 <link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="stylesheet" href="assets/fonts.css" />
+<link rel="stylesheet" href="assets/vendor/maplibre-gl/maplibre-gl.css" />
 <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -37,7 +38,9 @@
   </div>
 
   <main>
-  <section class="hero">
+  <!-- HERO: interaktive 3D-Karte von Aachen, Text als weißes Feld unten links -->
+  <section class="hero hero--map">
+    <div id="map"></div>
     <div class="hero-text">
       <p class="kicker">Familienunternehmen aus der Städteregion Aachen · seit 2000</p>
       <h1>Aus der Region.<br>Für die Zukunft.</h1>
@@ -47,10 +50,6 @@
         <a class="link" href="projekte.html">Projekte ansehen</a>
       </div>
     </div>
-    <figure class="photo">
-      <img src="assets/projekte/besttime-monschau.webp" width="1365" height="1024" alt="besttime Hotel in Monschau: denkmalgeschütztes Backsteingebäude von 1896 unterhalb der Burg Monschau">
-      <figcaption>besttime Hotel Monschau – das ehemalige Bischof-Vogt-Haus von 1896</figcaption>
-    </figure>
   </section>
 
   <section class="statement">
@@ -141,5 +140,105 @@
     b.addEventListener('click', function () { strip.scrollBy({ left: b.dataset.dir * (strip.querySelector('.proj').offsetWidth + 28), behavior: 'smooth' }); });
   });
 </script>
+
+  <!-- Interactive 3D map of Aachen (MapLibre GL + OpenFreeMap, no API key) -->
+  <script src="assets/vendor/maplibre-gl/maplibre-gl.js"></script>
+  <script>
+  (function () {
+    var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Kein Ladebildschirm: Text und Buttons sind sofort sichtbar, die Karte blendet sich ein, sobald sie bereit ist.
+    var mapEl = document.getElementById('map');
+    function showMap() { if (mapEl) mapEl.classList.add('ready'); }
+    function hideLoader() {}
+    var safety = 0;
+
+    if (!window.maplibregl) { hideLoader(); return; }
+
+    var AACHEN = [6.0839, 50.7753];
+
+    // Karte in Graustufen (CI), freie OpenStreetMap-Vektordaten
+    var style = {
+      version: 8,
+      name: 'TI Grau',
+      sources: {
+        omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet', attribution: '© OpenStreetMap-Mitwirkende' }
+      },
+      layers: [
+        { id: 'bg', type: 'background', paint: { 'background-color': '#F5F5F5' } },
+        { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': '#DEDEDE' } },
+        { id: 'park', type: 'fill', source: 'omt', 'source-layer': 'park', paint: { 'fill-color': '#EBEBEB', 'fill-opacity': 0.7 } },
+        { id: 'road-minor', type: 'line', source: 'omt', 'source-layer': 'transportation',
+          filter: ['!in', 'class', 'motorway', 'trunk', 'primary'],
+          paint: { 'line-color': '#E3E3E3', 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 0.3, 16, 2.4] } },
+        { id: 'road-major', type: 'line', source: 'omt', 'source-layer': 'transportation',
+          filter: ['in', 'class', 'motorway', 'trunk', 'primary'],
+          paint: { 'line-color': '#CFCFCF', 'line-width': ['interpolate', ['linear'], ['zoom'], 12, 1, 16, 5] } },
+        { id: 'buildings', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13,
+          paint: {
+            'fill-extrusion-color': ['interpolate', ['linear'], ['get', 'render_height'],
+              0, '#F2F2F2', 12, '#E2E2E2', 40, '#C8C8C8', 90, '#A6A6A6'],
+            'fill-extrusion-height': ['interpolate', ['linear'], ['zoom'], 13, 0, 14, ['get', 'render_height']],
+            'fill-extrusion-base': ['get', 'render_min_height'],
+            'fill-extrusion-opacity': 0.94,
+            'fill-extrusion-vertical-gradient': true
+          } }
+      ]
+    };
+
+    var map;
+    try {
+      map = new maplibregl.Map({
+        container: 'map',
+        style: style,
+        center: AACHEN,
+        zoom: 14.6,
+        pitch: 36,
+        bearing: -10,
+        maxPitch: 70,
+        attributionControl: false,
+        cooperativeGestures: true,    // one finger scrolls the page; two fingers move the map
+        dragRotate: true,
+        antialias: true,
+        locale: {
+          'CooperativeGesturesHandler.WindowsHelpText': 'Strg + Scrollen zum Zoomen',
+          'CooperativeGesturesHandler.MacHelpText': '⌘ + Scrollen zum Zoomen',
+          'CooperativeGesturesHandler.MobileHelpText': 'Mit zwei Fingern bewegen'
+        }
+      });
+    } catch (e) {
+      clearTimeout(safety); hideLoader(); return;
+    }
+
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-right');
+
+    // gentle auto-rotation that pauses on interaction / when scrolled away
+    var heroVisible = true, paused = false, resumeT;
+    var heroEl = document.querySelector('.hero');
+    if (heroEl && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { heroVisible = es[0].isIntersecting; }, { threshold: 0 }).observe(heroEl);
+    }
+    function pause() { paused = true; clearTimeout(resumeT); resumeT = setTimeout(function () { paused = false; }, 4000); }
+    ['mousedown', 'touchstart', 'wheel', 'dragstart', 'zoomstart'].forEach(function (ev) { map.on(ev, pause); });
+    var spinning = false;
+    function spin() {
+      requestAnimationFrame(spin);
+      if (reduced || !heroVisible || paused || !map) return;
+      map.setBearing(map.getBearing() + 0.045);
+    }
+    function startSpin() { if (!spinning) { spinning = true; spin(); } }
+
+    map.on('load', function () {
+      showMap();
+      if (!reduced) {
+        map.easeTo({ center: AACHEN, zoom: 15.35, pitch: 55, bearing: -26, duration: 3000, essential: true });
+        setTimeout(startSpin, 3200);
+      } else {
+        map.jumpTo({ zoom: 15.35, pitch: 55, bearing: -26 });
+      }
+    });
+    map.on('error', function (e) { if (e && e.error) console.warn('Karte:', e.error.message); });
+  })();
+  </script>
 </body>
 </html>

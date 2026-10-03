@@ -320,3 +320,20 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 .service + .contact, .statement + .contact { margin-top: clamp(64px, 10vh, 120px); }
 .proj-card--brand .brand-panel { gap: 20px; }
 .proj-card--brand .brand-panel .place { margin-bottom: -4px; }
+
+/* ───────── Startseite: 3D-Karte als Herzstück ───────── */
+.hero--map { position: relative; display: block; overflow: hidden; background: var(--grey); }
+#map { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+#map.ready { opacity: 1; }
+/* Textfeld wie eine ausgeschnittene Bildunterschrift: weiß, bündig unten links */
+.hero--map .hero-text { position: absolute; left: 0; bottom: 0; z-index: 2; max-width: 640px; background: var(--white); padding: clamp(36px, 4vw, 56px) clamp(36px, 4vw, 64px) clamp(36px, 5vh, 56px) var(--g); }
+.hero--map h1 { font-size: clamp(2.4rem, 3.8vw, 4rem); }
+.maplibregl-ctrl-attrib { font-family: var(--sans); font-size: 10px; background: rgba(255,255,255,0.85) !important; }
+.maplibregl-ctrl-attrib a { color: var(--grey-text); }
+.maplibregl-ctrl-group { box-shadow: none !important; border: 1px solid var(--line) !important; border-radius: 0 !important; }
+.maplibregl-cooperative-gesture-screen { font-family: var(--head); }
+@media (max-width: 960px) {
+  .hero--map { display: flex; flex-direction: column; }
+  #map { position: relative; inset: auto; height: 58svh; min-height: 340px; }
+  .hero--map .hero-text { position: static; max-width: none; padding: 32px var(--g) 48px; }
+}
