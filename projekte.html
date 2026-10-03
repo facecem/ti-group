@@ -3,11 +3,15 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Projekte – TI Group</title>
-<meta name="description" content="Ein Einblick in die Projekte der TI Group: Wohnimmobilien, Hotellerie und Gastronomie." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Josefin+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<title>Projekte und Referenzen – TI Group</title>
+<meta name="description" content="Fünf echte Referenzen: Quartier Hastenrath, besttime Hotel Boppard, besttime Hotel Monschau, Kammerhof Mönchengladbach und Neustraße Eschweiler." />
+<meta name="theme-color" content="#FFFFFF" />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="preload" href="assets/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="assets/fonts/open-sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="assets/fonts.css" />
 <link rel="stylesheet" href="assets/styles.css" />
 </head>
 <body>
@@ -34,7 +38,7 @@
     <div class="crumb"><a href="index.html">Start</a> &nbsp;/&nbsp; Projekte</div>
     <div class="label">Unsere Projekte</div>
     <h1>Ein Einblick in die Zukunft,<br>die wir gestalten.</h1>
-    <p class="lead">Von Wohnquartieren über Design-Hotels bis zur Systemgastronomie – eine Auswahl unserer Vorhaben.</p>
+    <p class="lead">Fünf Objekte, die wir erworben, saniert und wieder in Nutzung gebracht haben – vom Wohnquartier bis zum Hotel im Baudenkmal.</p>
   </section>
 
   <main>
@@ -47,24 +51,63 @@
           <button class="chip" data-filter="gastro">Gastronomie</button>
         </div>
 
-        <div class="card-grid" style="margin-top:32px">
-          <a class="img-card reveal" data-cat="wohnen" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1567496898669-ee935f5f647a?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Wohnimmobilien</div><div class="img-title">Modernes Wohnquartier</div><div class="img-loc">Aachen Innenstadt</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
-          <a class="img-card reveal d1" data-cat="hotel" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Hotellerie</div><div class="img-title">Urbanes Design-Hotel</div><div class="img-loc">Köln Zentrum</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
-          <a class="img-card reveal d2" data-cat="gastro" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Gastronomie</div><div class="img-title">Systemgastronomie Hub</div><div class="img-loc">Düsseldorf Medienhafen</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
-          <a class="img-card reveal" data-cat="wohnen" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1460317442991-0ec209397118?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Wohnimmobilien</div><div class="img-title">Mikro-Apartments</div><div class="img-loc">Aachen Burtscheid</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
-          <a class="img-card reveal d1" data-cat="hotel" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Hotellerie</div><div class="img-title">Boutique-Hotel</div><div class="img-loc">Maastricht</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
-          <a class="img-card reveal d2" data-cat="gastro" href="kontakt.html" style="height:360px"><div class="img-bg" style="background-image:url('https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=800&q=80')"></div><div class="img-overlay"></div><div class="img-content"><div class="img-label">Gastronomie</div><div class="img-title">Café- &amp; Food-Konzept</div><div class="img-loc">Köln Ehrenfeld</div><div class="img-btn">Anfragen <span>›</span></div></div></a>
+        <div class="proj-grid">
+          <article class="proj-card reveal" data-cat="wohnen">
+            <img src="assets/projekte/quartier-hastenrath.webp" width="1365" height="1024" loading="lazy" decoding="async" alt="Quartier Hastenrath in Eschweiler nach der Sanierung: helle Fassaden mit Balkonen und neuer Stellplatzhof">
+            <div class="proj-body">
+              <div class="proj-cat">Wohnimmobilien</div>
+              <h3 class="proj-title">Eschweiler · Quartier Hastenrath</h3>
+              <div class="proj-facts">29 Einheiten · Planung für bis zu 72</div>
+              <dl class="proj-dl"><dt>Ausgangslage</dt><dd>16 Wohneinheiten aus Zwangsversteigerung mit starkem Sanierungsstau.</dd><dt>Lösung</dt><dd>Sanierung, Neubau und Dachgaubenausbau auf heute 29 Einheiten; weitere Flächen gesichert für bis zu 72 Einheiten.</dd></dl>
+            </div>
+          </article>
+          <article class="proj-card reveal d1" data-cat="hotel">
+            <img src="assets/projekte/besttime-boppard.webp" width="1365" height="1024" loading="lazy" decoding="async" alt="besttime Hotel in Boppard: langgestrecktes weißes Hotelgebäude direkt am Rhein">
+            <div class="proj-body">
+              <div class="proj-cat">Hotellerie</div>
+              <h3 class="proj-title">Boppard · besttime Hotel</h3>
+              <div class="proj-facts">89 Zimmer · 4.500 m²</div>
+              <dl class="proj-dl"><dt>Ausgangslage</dt><dd>Ehemaliges Hotel L’Europe direkt am Rhein – familiengeführt, ohne Nachfolgelösung, erheblicher Instandhaltungsstau.</dd><dt>Lösung</dt><dd>Revitalisierung zum Leisure-Hotel mit 89 Zimmern auf 4.500 m², inklusive Nachrüstung des Brandschutzes mit den Behörden.</dd></dl>
+            </div>
+          </article>
+          <article class="proj-card reveal d2" data-cat="hotel">
+            <img src="assets/projekte/besttime-monschau.webp" width="1365" height="1024" loading="lazy" decoding="async" alt="besttime Hotel in Monschau: denkmalgeschütztes Backsteingebäude von 1896 unterhalb der Burg Monschau">
+            <div class="proj-body">
+              <div class="proj-cat">Hotellerie</div>
+              <h3 class="proj-title">Monschau · besttime Hotel</h3>
+              <div class="proj-facts">29 Zimmer · Baujahr 1896</div>
+              <dl class="proj-dl"><dt>Ausgangslage</dt><dd>Ehemaliges Bischof-Vogt-Haus von 1896, Außenhülle unter Denkmalschutz – früher Pfarr- und Gemeindezentrum sowie Sparkasse, zuletzt ohne Nutzung.</dd><dt>Lösung</dt><dd>Sanierung und Umnutzung zum Hotel mit 29 Zimmern auf aktuellem Standard; Brandschutzkonzept im Einklang mit dem Denkmalschutz, gemeinsam mit Kirche und Behörden umgesetzt.</dd></dl>
+            </div>
+          </article>
+          <article class="proj-card reveal" data-cat="wohnen">
+            <img src="assets/projekte/kammerhof-moenchengladbach.webp" width="1365" height="1024" loading="lazy" decoding="async" alt="Kammerhof in Mönchengladbach nach der Sanierung: Wohngebäude mit umlaufenden Balkonbändern im Grünen">
+            <div class="proj-body">
+              <div class="proj-cat">Wohnimmobilien</div>
+              <h3 class="proj-title">Mönchengladbach · Kammerhof</h3>
+              <div class="proj-facts">28 Wohneinheiten · 1.350 m²</div>
+              <dl class="proj-dl"><dt>Ausgangslage</dt><dd>In den Medien bekannte Problemimmobilie mit zerstrittener WEG, eingestuft als Worst Performing Building.</dd><dt>Lösung</dt><dd>Einzelankauf aller Einheiten, Entkernung und KfW-55-EE-Sanierung zu 28 Wohneinheiten auf 1.350 m².</dd></dl>
+            </div>
+          </article>
+          <article class="proj-card reveal d1" data-cat="wohnen">
+            <img src="assets/projekte/neustrasse-eschweiler.webp" width="1365" height="1024" loading="lazy" decoding="async" alt="Wohn- und Geschäftshaus an der Neustraße in Eschweiler: sanierte Fassade mit Praxis im Erdgeschoss">
+            <div class="proj-body">
+              <div class="proj-cat">Wohn- und Geschäftshaus</div>
+              <h3 class="proj-title">Eschweiler · Neustraße</h3>
+              <div class="proj-facts">770 m² Praxis · 672 m² Wohnen</div>
+              <dl class="proj-dl"><dt>Ausgangslage</dt><dd>Ehemaliges Kaufhaus an der zweitwichtigsten Einkaufsstraße Eschweilers, nach der Flut 2021 leerstehend, erworben aus der Zwangsversteigerung.</dd><dt>Lösung</dt><dd>Vollständige Sanierung – heute die größte kieferorthopädische Praxis der Städteregion Aachen (770 m²) und 672 m² Wohnen.</dd></dl>
+            </div>
+          </article>
+          <article class="proj-card proj-card--brand reveal d2" data-cat="gastro">
+            <div class="proj-body">
+              <div class="proj-cat">Gastronomie</div>
+              <div class="proj-brands"><span>Goldies</span><span>Napoli Express</span></div>
+              <p class="proj-brand-text">Als Franchisepartner von Goldies und mit unserem Eigenkonzept Napoli Express betreiben wir skalierbare Systemgastronomie an mehreren Standorten.</p>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="cta-band pad">
-      <div class="wrap">
-        <h2 class="reveal">Sie haben ein Objekt für uns?</h2>
-        <p class="reveal d1">Wir prüfen Ihr Angebot schnell und unkompliziert – bankenunabhängig und finanzstark.</p>
-        <div class="reveal d2"><a class="btn btn-primary" href="kontakt.html">Objekt anbieten</a></div>
-      </div>
-    </section>
   </main>
 
   <footer>
@@ -75,15 +118,11 @@
       </div>
       <div class="footer-bottom">
         <div class="footer-copy">© <span id="year">2026</span> TI Group. Alle Rechte vorbehalten.</div>
-        <div style="display:flex;gap:24px"><a class="footer-link" href="impressum.html">Impressum</a><a class="footer-link" href="datenschutz.html">Datenschutz</a></div>
+        <div style="display:flex;gap:24px"><a class="footer-link" href="impressum.html">Impressum</a><a class="footer-link" href="datenschutz.html">Datenschutz</a><a class="footer-link footer-social" href="https://www.linkedin.com/in/sufiyantahir/" target="_blank" rel="noopener" aria-label="Sufiyan Tahir auf LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.064 2.064 0 1 1 0-4.128 2.064 2.064 0 0 1 0 4.128zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></div>
       </div>
     </div>
   </footer>
 
-  <div class="cookie hidden" id="cookie-banner">
-    <div class="cookie-text"><strong>Wir verwenden Cookies</strong>Diese Website verwendet Cookies, um Ihnen die bestmögliche Erfahrung zu bieten.</div>
-    <div class="cookie-actions"><button class="cbtn cbtn-no" onclick="dismissCookie('declined')">Ablehnen</button><button class="cbtn cbtn-yes" onclick="dismissCookie('accepted')">Akzeptieren</button></div>
-  </div>
 
   <script src="assets/main.js"></script>
 </body>

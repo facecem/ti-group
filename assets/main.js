@@ -37,15 +37,24 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
   }
 
-  // ── Cookie banner ──
-  const cookie = document.getElementById('cookie-banner');
-  if (cookie && !localStorage.getItem('ti_cookie')) {
-    setTimeout(() => cookie.classList.remove('hidden'), 1600);
-  }
-  window.dismissCookie = function (v) {
-    localStorage.setItem('ti_cookie', v);
-    if (cookie) cookie.classList.add('hidden');
+  // ── E-Mail-Adressen (verschleiert) ──
+  // Im HTML steht keine Adresse im Klartext. Benutzername und Domain liegen getrennt hier
+  // und werden erst im Browser zu einem klickbaren mailto-Link zusammengesetzt.
+  // Ohne JavaScript bleibt der Text "info [at] tahir-investments [dot] com" stehen.
+  const MAILS = {
+    info:        ['info', 'tahir-investments', 'com'],
+    development: ['development', 'tahir-investments', 'com']
   };
+  function decodeMails(root) {
+    (root || document).querySelectorAll('[data-mail]').forEach(function (a) {
+      const p = MAILS[a.getAttribute('data-mail')];
+      if (!p) return;
+      const addr = p[0] + '@' + p[1] + '.' + p[2];
+      a.setAttribute('href', 'mailto:' + addr + (a.getAttribute('data-subject') ? '?subject=' + encodeURIComponent(a.getAttribute('data-subject')) : ''));
+      if (!a.hasAttribute('data-keep-text')) a.textContent = addr;
+    });
+  }
+  decodeMails();
 
   // ── Scroll reveal ──
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -76,14 +85,83 @@
     }));
   }
 
-  // ── Contact form ──
+  // ── Kontaktformular (Web3Forms) ──
+  // Je Postfach ein Access Key von web3forms.com. "Objektangebot" geht an development@,
+  // alle anderen Betreffs an info@. Fehlt der development-Key, geht alles an info@.
+  // Sind KEINE Keys eingetragen, wird das Formular ausgeblendet und E-Mail/Telefon groß angezeigt.
+  const FORM_KEYS = {
+    info:        'c5cfbed3-1fb4-452e-a25f-74690d279dd0',   // Access Key für info@tahir-investments.com
+    development: 'db2d7ec7-463d-4e71-a137-8bbf7106efe3'    // Access Key für development@tahir-investments.com
+  };
   const form = document.getElementById('kontakt-form');
   if (form) {
+    const fallback = document.getElementById('form-fallback');
+    const errBox = document.getElementById('form-error');
+    const btn = document.getElementById('form-btn');
+    const subj = document.getElementById('f-subj');
+
+    if (!FORM_KEYS.info && !FORM_KEYS.development) {
+      form.classList.add('hidden');
+      if (fallback) fallback.classList.remove('hidden');
+    }
+
+    // Betreff per Link vorauswählen: kontakt.html?betreff=Objektangebot
+    const pre = new URLSearchParams(location.search).get('betreff');
+    if (pre && subj) {
+      [].forEach.call(subj.options, function (o) { if (o.text.toLowerCase() === pre.toLowerCase()) subj.value = o.text; });
+    }
+
+    const showError = function (html) { errBox.innerHTML = html; errBox.classList.remove('hidden'); };
+    const direct = 'Bitte schreiben Sie uns direkt an <a class="js-mail" data-mail="info">info [at] tahir-investments [dot] com</a> oder rufen Sie an: <a href="tel:+4924143010030">0241 430 100 30</a>.';
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      form.classList.add('hidden');
-      const ok = document.getElementById('form-success');
-      if (ok) ok.classList.remove('hidden');
+      errBox.classList.add('hidden');
+      form.querySelectorAll('.is-invalid').forEach(function (el) { el.classList.remove('is-invalid'); });
+
+      // Pflichtfelder prüfen
+      let firstBad = null;
+      form.querySelectorAll('[required]').forEach(function (el) {
+        const bad = el.type === 'checkbox' ? !el.checked : !el.value.trim() || (el.type === 'email' && !/^\S+@\S+\.\S+$/.test(el.value));
+        if (bad) { (el.type === 'checkbox' ? el.closest('.form-check') : el).classList.add('is-invalid'); firstBad = firstBad || el; }
+      });
+      if (firstBad) {
+        showError(firstBad.type === 'email' && firstBad.value ? 'Bitte geben Sie eine gültige E-Mail-Adresse ein.' : 'Bitte füllen Sie alle mit * markierten Felder aus und bestätigen Sie die Datenschutzerklärung.');
+        firstBad.focus(); return;
+      }
+
+      const F = form.elements;
+      const toDev = subj.value === 'Objektangebot' && FORM_KEYS.development;
+      const data = {
+        access_key: toDev ? FORM_KEYS.development : (FORM_KEYS.info || FORM_KEYS.development),
+        subject: 'Website-Anfrage: ' + subj.value,
+        from_name: 'Website TI Group',
+        name: F.name.value.trim(),
+        email: F.email.value.trim(),
+        telefon: F.telefon.value.trim() || '–',
+        betreff: subj.value,
+        nachricht: F.nachricht.value.trim(),
+        botcheck: F.botcheck.checked
+      };
+      if (data.botcheck) return; // Bot: still ignorieren
+
+      btn.disabled = true; const label = btn.textContent; btn.textContent = 'Wird gesendet …';
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.success, j: j }; }); })
+        .then(function (res) {
+          if (!res.ok) throw new Error((res.j && res.j.message) || 'Versand fehlgeschlagen');
+          form.classList.add('hidden');
+          const ok = document.getElementById('form-success');
+          if (ok) ok.classList.remove('hidden');
+        })
+        .catch(function () {
+          showError('Ihre Nachricht konnte gerade nicht gesendet werden. Ihre Eingaben bleiben erhalten. ' + direct);
+          decodeMails(errBox);
+        })
+        .finally(function () { btn.disabled = false; btn.textContent = label; });
     });
   }
 
