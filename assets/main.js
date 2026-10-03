@@ -56,20 +56,6 @@
   }
   decodeMails();
 
-  // ── Scroll reveal ──
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const revealEls = document.querySelectorAll('.reveal');
-  if (reduced || !('IntersectionObserver' in window)) {
-    revealEls.forEach(el => el.classList.add('in'));
-  } else {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-      });
-    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
-    revealEls.forEach(el => io.observe(el));
-  }
-
   // ── Projects filter ──
   const chips = document.querySelectorAll('.chip');
   const cards = document.querySelectorAll('[data-cat]');
