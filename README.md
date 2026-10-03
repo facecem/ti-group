@@ -1,13 +1,13 @@
 # TI Group — Website
 
 Statische Website (HTML/CSS/JS, kein Build-Schritt) für die TI Group.
-Startseite mit interaktiver 3D-Karte von Aachen (MapLibre GL + OpenFreeMap, kein API-Key) im weiß/gold-Design.
+Design „Exposé“: Die Seite liegt in einem hellgrauen Rahmen, Schwarz nur für Schrift und Buttons, Gold nur als feine Linie.
 
 ## Inhalt
 
 ```
 ti-group-site/
-├── index.html          Startseite (3D-Karte Aachen + Übersicht)
+├── index.html          Startseite
 ├── ueber-uns.html      Über Uns
 ├── leistungen.html     Leistungen (3 Säulen)
 ├── projekte.html       Projekte (mit Filter)
